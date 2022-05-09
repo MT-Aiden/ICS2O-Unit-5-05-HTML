@@ -1,18 +1,34 @@
-//Made by: Aiden McLeod
-//Made in: March 2022
+// Aiden McLeod
+// ICS2O-Unit5-05-HTML
+// May 6 2022
 
 'use strict'
 /**
- * This function calculates area of a sphere.
+ * Check service worker.
  */
-function calculate() {
-  // input
-  const radius = parseInt(document.getElementById('radius').value)
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.register("/ICS2O-Unit5-05-HTML/sw.js", {
+    scope: "/ICS2O-Unit5-05-HTML/",
+  })
+}
 
-  // process
+/**
+ * Finds if the triangle is equilateral, isosceles, or scalene depending on the lengths the user input.
+ */
+function onButtonClick() {
+  const side1 = document.getElementById("side1").value
+  const side2 = document.getElementById("side2").value
+  const side3 = document.getElementById("side3").value
 
-  const volume = (4/3)* Math.PI * Math.pow(radius, 3);
-
-  // output
-  document.getElementById('volume').innerHTML = 'Volume is: ' + volume.toFixed(2) + ' cm³'
+  if (side1 > 0 && side2 > 0 && side3 > 0) { // Checks if one of the numbers is negative
+    if (side1 == side2 && side2 == side3) {
+    document.getElementById("result").innerHTML = "<h5>This triangle is equilateral.</h5>"
+    } else if (side1 == side2 && side2 != side3 || side2 == side3 && side3 != side1 || side1 == side3 && side3 != side2) {
+      document.getElementById("result").innerHTML = "<h5>This triangle is isosceles.</h5>"
+    } else {
+      document.getElementById("result").innerHTML = "<h5>This triangle is scalene.</h5>"
+    }
+  } else {
+    document.getElementById("result").innerHTML = "<h5>Please enter valid numbers.</h5>"
+  }
 }
